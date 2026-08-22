@@ -1,5 +1,7 @@
 # Sepehr builds systems that keep running.
 
+[![ORCID](https://img.shields.io/badge/ORCID-0000--0003--4524--0959-A6CE39?style=flat-square&logo=orcid&logoColor=white)](https://orcid.org/0000-0003-4524-0959)
+
 I’m a **medical doctor (MD)** and software/systems engineer working at the intersection of
 clinical precision, self-hosted infrastructure, AI agents, and automation.
 
@@ -73,6 +75,7 @@ services that should remain independent of the development machine.
 ## Working stack
 
 **Background:** Medical Doctor (MD), Systems & Automation Builder  
+**ORCID iD:** [0000-0003-4524-0959](https://orcid.org/0000-0003-4524-0959)  
 **Languages:** Python, TypeScript, JavaScript, Shell, YAML  
 **Infrastructure:** macOS, Ubuntu, Docker Compose, launchd, Cloudflare, Tailscale  
 **Automation:** Home Assistant, n8n, Zigbee, Matter, MQTT  
