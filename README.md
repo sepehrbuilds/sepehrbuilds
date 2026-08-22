@@ -1,39 +1,79 @@
-### Hi there, I'm Sepehr 👋
+# Sepehr builds systems that keep running.
 
-**Homelab Architect • AI Systems & Automation Builder • Software Engineer**
+I’m a **medical doctor (MD)** and software/systems engineer working at the intersection of
+clinical precision, self-hosted infrastructure, AI agents, and automation.
 
----
+My engineering philosophy comes directly from medicine: **evidence before assertions,
+fail-safe defaults, and zero tolerance for silent failures.**
 
-### 🚀 What I'm Focused On
-- 🏠 **Homelab & Infrastructure**: Multi-node home server architecture (Mac Mini M4 + Ubuntu Server) running automated services, container workloads, and native orchestration.
-- 🤖 **AI Agents & Tooling**: Designing autonomous multi-agent pipelines (OpenClaw, Claude Code, OpenAI Codex, Google Antigravity).
-- ⚡ **Home Automation**: End-to-end smart home intelligence via Home Assistant, Matter/Thread, Zigbee, MQTT, and n8n workflows.
-- 🛠️ **Developer Tools & Utilities**: Building CLI utilities, system integrations, and personal productivity tooling.
+My homelab is a two-machine production environment: a **Mac Mini M4** handles
+orchestration, multi-agent runtimes, local AI, and native services; an **Ubuntu Mini PC**
+runs Home Assistant, Docker workloads, and the network-facing automation layer.
 
----
+The interesting part is not how many services it runs. It is how they coordinate,
+recover, and remain understandable when nobody is watching.
 
-### 🛠️ Tech Stack & Tools
+## System topology
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Home Assistant](https://img.shields.io/badge/Home_Assistant-41BDF5?style=for-the-badge&logo=home-assistant&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![n8n](https://img.shields.io/badge/n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+```mermaid
+flowchart LR
+    DEV["People, sensors<br/>and smart-home devices"]
 
----
+    subgraph MAC["Mac Mini M4 — orchestration"]
+        AGENTS["AI agent runtime<br/>OpenClaw · Claude Code<br/>Codex · Antigravity"]
+        MEMORY["Local memory<br/>search and retrieval"]
+        N8N["n8n pipelines"]
+        LOCALAI["Local models<br/>and embeddings"]
+        LAUNCHD["launchd services<br/>and sync daemons"]
+    end
 
-### 📊 GitHub Activity
-<p align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=sepehrbuilds&show_icons=true&theme=tokyonight&count_private=true&hide_border=true" alt="Sepehr's GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=sepehrbuilds&layout=compact&theme=tokyonight&count_private=true&hide_border=true" alt="Top Languages" />
-</p>
+    subgraph MINI["Ubuntu Mini PC — operations"]
+        HA["Home Assistant"]
+        RADIO["Zigbee · Matter · MQTT"]
+        DOCKER["Docker services"]
+        NETWORK["Monitoring and<br/>network services"]
+    end
 
----
-<p align="center">
-  <i>"Building thoughtful automations that quietly do the heavy lifting."</i>
-</p>
+    DEV --> RADIO --> HA
+    HA <--> N8N
+    AGENTS <--> MEMORY
+    MEMORY <--> LOCALAI
+    AGENTS --> N8N
+    LAUNCHD --> AGENTS
+    LAUNCHD --> MEMORY
+    N8N <--> DOCKER
+    HA --> DOCKER
+    DOCKER --> NETWORK
+```
+
+The split is intentional: macOS owns orchestration and workloads that benefit from
+Apple silicon or native processes; Ubuntu owns home automation, containers, and
+services that should remain independent of the development machine.
+
+## Selected systems
+
+| Project | What it does |
+|---|---|
+| **homelab** | Infrastructure definitions, deployment configuration, and operational runbooks for the two-machine homelab. |
+| **homelab-command-center** | Single operational view of services, health, jobs, and infrastructure state with an MCP interface for agent diagnostics. |
+| **open-ig-poster** | Security-conscious, self-hosted Instagram publishing queue with approval workflows, dry-run defaults, and retry guards. |
+| **local-memory-search** | Private multilingual search across local clinical notes and project files with cited retrieval and local-model synthesis. |
+| **homeassistant-config** | Source-controlled Home Assistant configuration for Zigbee, Matter, MQTT, presence, and cross-machine automations. |
+| **mac-mini-scripts** | Operational scripts and unattended launchd jobs for backups, synchronization, health checks, and service recovery. |
+| **ai-tooling** | Shared tooling and integrations for Claude Code, OpenAI Codex, Antigravity, OpenClaw, and local MCP servers. |
+
+## What I care about
+
+- **Clinical rigor in code:** Observable failure modes, idempotent execution, and automated verification before completion.
+- **Local-first & privacy-first:** Sensitive data, notes, and routine AI inference stay strictly on hardware I control.
+- **Operational truth:** A correct configuration file is not proof that the running system loaded it.
+- **Useful agents:** Tools should retrieve evidence, cite their sources, and operate within strict sandbox boundaries.
+- **Boring reliability:** Small services, clear interfaces, tested recovery paths, and zero hidden dependencies.
+
+## Working stack
+
+**Background:** Medical Doctor (MD), Systems & Automation Builder  
+**Languages:** Python, TypeScript, JavaScript, Shell, YAML  
+**Infrastructure:** macOS, Ubuntu, Docker Compose, launchd, Cloudflare, Tailscale  
+**Automation:** Home Assistant, n8n, Zigbee, Matter, MQTT  
+**AI Systems:** OpenClaw, Claude Code, OpenAI Codex, Antigravity, MCP, Ollama, vector retrieval
